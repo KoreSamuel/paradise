@@ -1,0 +1,21 @@
+<%- partial('_partial/header', {
+    title: theme.link_title,
+    hdClass: 'archives-header'
+}) %>
+    <div class="container body-wrap fade">
+        <div class="waterfall in">
+            <%if(theme.friends && theme.friends.length != 0){%>
+                <% for (var i in theme.friends){ %>
+                    <div class="waterfall-item">
+                        <article class="article-card archive-article">
+                            <h3 class="post-title" itemprop="name">
+                                <a class="post-title-link" href="<%- url_for(theme.friends[i]) %>">
+                                    <%= i %>
+                                </a>
+                            </h3>
+                        </article>
+                    </div>
+                    <%}%>
+                        <%}%>
+        </div>
+    </div>
