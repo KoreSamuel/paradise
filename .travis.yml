@@ -16,11 +16,11 @@ after_script:
   - git config user.email "swustxiaojie@163.com"  #修改email
   - git add .
   - git commit -m "update site"
-  - git push --force --quiet "https://${travis}@${GH_REF}" master:master  #GH_TOKEN是在Travis中配置token的名称
+  - git push --force  "https://${travis}@${GH_REF}" master:master  #travis是在Travis中配置token的名称
 
 branches:
   only:
-    - master  #只监测hexo分支，hexo是我的分支的名称，可根据自己情况设置
+    - master  #只监测master，可根据自己情况设置
 env:
  global:
    - GH_REF: github.com/swust-xiaoj/tb.git  #设置GH_REF，注意更改yourname
