@@ -102,11 +102,11 @@ less:
 
 # 以下评论插件开启一个即可
 # 是否开启多说评论，填写你在多说创建的站点二级域名
-duoshuo: true
+duoshuo: false
 # 是否开启多说评论计数（该服务不稳定）
 duoshuo_count: accompany
 # 使用 disqus 时关闭多说评论
-disqus_shortname: false
+disqus_shortname: xiaojie
 # 是否开启友言评论, 填写友言用户id
 uyan_uid: false
 # 是否开启网易云跟帖， 填写app sdk中的app key
