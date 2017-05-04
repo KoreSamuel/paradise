@@ -1,10 +1,11 @@
 {
-  "name": "hexo-site",
-  "version": "0.0.0",
+  "name": "paradise",
+  "version": "0.0.1",
   "private": true,
   "hexo": {
     "version": "3.3.5"
   },
+  "author": "xiaojie6170@gmail.com",
   "dependencies": {
     "hexo": "^3.2.0",
     "hexo-generator-archive": "^0.1.4",
