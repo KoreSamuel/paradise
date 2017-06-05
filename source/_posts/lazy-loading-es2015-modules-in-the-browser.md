@@ -103,7 +103,9 @@ describe('the zoo module', () => {
   });
 });
 ```
-###默认
+
+### 默认
+
 如果你只有一个项目要导出，你可以使用`export default`来将你需要导出的项目作为一个对象
 ```
 // cat.js
@@ -178,6 +180,6 @@ document.getElementById('loadZoo').addEventListener('click', e => {
 ```
 
 ## 结论
-
+掌握遵守页面加载最少必须加载和懒加载可延迟加载的模块可以明显的提升你的页面性能，`AMD`和`CommonJS`为`ES2015`模块铺路。你可以开始使用`System.js`加载`ES2015`模块，或者通过`webpack 2`使用动态导入规范。但是官方的解决方案至今还未发布。
 ## reference
 [lazy-loading-es2015-modules-in-the-browser](https://dzone.com/articles/lazy-loading-es2015-modules-in-the-browser)
