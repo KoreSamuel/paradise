@@ -140,8 +140,18 @@ cdn: true
 # 设置为 true 将使用 lightbox render 图片
 lightbox: true
 
-friends:
-    woodrat: http://woodrat.xyz/
-    zengmaoyun: https://zengmaoyun.github.io/blog/
-    my-medium: https://medium.com/@xiaojie6170
-    shine: http://shinelee.ml/
+links:
+    friends:
+        - {text: woodrat, link: http://woodrat.xyz/, desc: 记录下折腾和学习的过程}
+        - {text: shine, link: http://shinelee.ml/, desc: 生命不息，折腾不止！！！}
+        - {text: zengmaoyun, link: https://zengmaoyun.github.io/blog/, desc: 好记性不如烂笔头}
+        - {text: 未知账号, link: https://weizhizhanghao.github.io/, desc: 一个积极奋进的女汉子}
+    social:
+        - {text: medium, link: https://medium.com/@xiaojie6170, desc: Read write and share stories that matter}
+        - {text: v2ex, link: https://www.v2ex.com/, desc: 创意工作者们的社区}
+        - {text: 掘金, link: https://juejin.im/, desc: 一个帮助开发者成长的社区}
+        - {text: w3cplus, link: http://www.w3cplus.com/, desc: w3cplus提供了大量最新前端技术文章、demo及下载资源，以一起学习进步，共同分享为原则，为打造优秀的前端学习教程而努力。}
+    weekly:
+        - {text: 奇舞周刊, link: https://weekly.75team.com/, desc: 我们收集每周前端精华文章，集结成册，每周五推送到微信公众号和知乎专栏。}
+        - {text: FEX周刊 , link: http://fex.baidu.com/weekly/, desc: 百度前端团队FEX周刊}
+        - {text: JavaScriptKicks, link: https://javascriptkicks.com/, desc: JavaScriptKicks is a community based news site focused on JavaScript}
