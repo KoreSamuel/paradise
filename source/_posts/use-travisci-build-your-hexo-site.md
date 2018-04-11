@@ -66,7 +66,7 @@ env:
 ### 创建文章
 我们可以创建一篇文章`hexo new post use-travis-build-your-hexo-site`，添加内容后，并`push`到`github`，正常情况下，进入`Travis`网站就可以看到已经在构建了，如图
 ![success](http://7xjp74.com1.z0.glb.clouddn.com/success.png)
-完成后，[访问链接](http://dearxiaojie.xyz/tb/2017-05-04/use-travisci-build-your-hexo-site.html)就可以看到这篇文章了。
+完成后，[访问链接](http://dearxiaojie.top/tb/2017-05-04/use-travisci-build-your-hexo-site.html)就可以看到这篇文章了。
 
 ## 写在后面
 很久没有花时间写点东西了，不管有没有价值，总是一种对知识的积累和总结，输出也意味着输入，所以以后还是将学到的东西和积累总结下，自己可以将知识梳理的同时能帮助到别人是更好的了。

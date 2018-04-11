@@ -84,4 +84,4 @@ function adjustSeries(activeName) {
 
 - [Highcharts API](http://api.highcharts.com/highcharts)
 
-[_成品链接_](http://dearxiaojie.xyz/note/demos/highcharts.html)
+[_成品链接_](http://dearxiaojie.top/note/demos/highcharts.html)
