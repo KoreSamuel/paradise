@@ -10,7 +10,7 @@ a.back-top {
   text-align: center;
   transition-duration: .5s;
   transition-propety: background-color;
-  display: none;
+  // display: none;
   &.show {
     display: block;
   }

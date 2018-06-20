@@ -76,12 +76,12 @@ link_slogan:
 # set backtop show or hide
 backtop:
   home: false
-  archive: false
+  archive: true
   category: true
   tag: true
   post: true
-  link: false
-  about: false
+  link: true
+  about: true
 
 donation:
   show: false

@@ -1,8 +1,8 @@
 .toc-article {
-  position: absolute;
-  left: 50%;
-  margin-left: $post-width / 2 + 20px;
-  top: 200px;
+  position: sticky;
+  // left: 50%;
+  margin-left: 50px;
+  top: 300px;
   font-size: 13px;
 
   &.fixed {
