@@ -13,9 +13,11 @@ comments: true
 ### 字符串的连接
 
 如果要连接多个字符串，应该少使用+=，如
+```js
 s+=a;
 s+=b;
 s+=c;
+```
 应该写成s+=a + b + c；
 而如果是收集字符串，比如多次对同一个字符串进行+=操作的话，最好使用一个缓存，使用`JavaScript`数组来收集，最后使用`join`方法连接起来。
 
@@ -32,39 +34,39 @@ s+=c;
 
 一旦需要更新DOM,请考虑使用文档碎片来构建DOM结构，然后再将其添加到现存的文档中。
 
-```
-		for (var i = 0; i < 1000; i++) {
-            var el = document.createElement('p');
-            el.innerHTML = i;
-            document.body.appendChild(el);
-        }       
-         //可以替换为：
-        var frag = document.createDocumentFragment();
-            for (var i = 0; i < 1000; i++) {  
-                var el = document.createElement('p');
-            	el.innerHTML = i;
-            	frag.appendChild(el);
-        	}
-        document.body.appendChild(frag);
+```js
+for (var i = 0; i < 1000; i++) {
+    var el = document.createElement('p');
+    el.innerHTML = i;
+    document.body.appendChild(el);
+}
+    //可以替换为：
+var frag = document.createDocumentFragment();
+    for (var i = 0; i < 1000; i++) {
+        var el = document.createElement('p');
+        el.innerHTML = i;
+        frag.appendChild(el);
+    }
+document.body.appendChild(frag);
 ```
 ### 使用一次innerHTML赋值代替构建dom元素
 
 对于大的DOM更改，使用`innerHTML`要比使用标准的DOM方法创建同样的DOM结构快得多。
 
-```
- 		var frag = document.createDocumentFragment();
-        for (var i = 0; i < 1000; i++) {
-            var el = document.createElement('p');
-            el.innerHTML = i;
-            frag.appendChild(el);
-        }
-        document.body.appendChild(frag);
-            //可以替换为：
-        var html = [];
-            for (var i = 0; i < 1000; i++) {
-            html.push('<p>' + i + '</p>');
-        }
-        document.body.innerHTML = html.join('');
+```js
+var frag = document.createDocumentFragment();
+for (var i = 0; i < 1000; i++) {
+    var el = document.createElement('p');
+    el.innerHTML = i;
+    frag.appendChild(el);
+}
+document.body.appendChild(frag);
+    //可以替换为：
+var html = [];
+    for (var i = 0; i < 1000; i++) {
+    html.push('<p>' + i + '</p>');
+}
+document.body.innerHTML = html.join('');
 ```
 
 ### 使用事件代理
@@ -73,20 +75,20 @@ s+=c;
 
 ### 缩短否定检测
 
-```
-    if (oTest != '#ff0000') {
-        //do something
-    }
-    if (oTest != null) {
-        //do something
-    }
-    if (oTest != false) {
-        //do something
-    }
-        //虽然这些都正确，但用逻辑非操作符来操作也有同样的效果：
-    if (!oTest) {
-        //do something
-    }
+```js
+if (oTest != '#ff0000') {
+    //do something
+}
+if (oTest != null) {
+    //do something
+}
+if (oTest != false) {
+    //do something
+}
+    //虽然这些都正确，但用逻辑非操作符来操作也有同样的效果：
+if (!oTest) {
+    //do something
+}
 ```
 
 ### 条件分支
@@ -95,13 +97,14 @@ s+=c;
 在同一条件子的多（>2）条件分支时，使用`switch`优于`if`：`switch`分支选择的效率高于if，在IE下尤为明显。4分支的测试，IE下`switch`的执行时间约为if的一半。
 使用三目运算符替代条件分支
 
-```
- if (a > b) {
-            num = a;
-        } else {
-            num = b;
-        }        //可以替换为：
-        num = a > b ? a : b;
+```js
+if (a > b) {
+    num = a;
+} else {
+    num = b;
+}
+//可以替换为：
+num = a > b ? a : b;
 ```
 
 

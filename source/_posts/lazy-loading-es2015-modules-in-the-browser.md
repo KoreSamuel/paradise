@@ -26,7 +26,7 @@ ES2015模块在浏览器懒加载
  * 事件触发内容显示。比如一个放大的覆盖层，在用户点击图片的时候在显示
  * 少数内容。比如一个‘免运费’的控件，只只用于一些小的页面上
  * 有时间间隔的内容显示。比如一个客服聊天框
- 
+
 这样的话，对于给出一个类似上面的功能，如果他的触发条件未发生，他的代码块就永远不会被执行。因此，那个代码块在页面加载的时候明显是不需要的，是可以延迟加载的。
 
 为了延迟加载，你只需要将在页面加载期间执行的代码从代码块中提取出来。这样在他的触发条件第一次发生的时候就被执行。
@@ -60,12 +60,12 @@ AMD标准是为在浏览器上异步加载加载创造的，是第一个作为�
 ### 导出和导入
 
 在一个你想导出的项目(如一个变量，函数、类)的前面加上一个关键词`export`就可以导出，在下面这个例子中，我们导出`Dog`和`Wolf`:
-```
+```js
 // zoo.js
-var getBarkStyle = function(isHowler) {  
+var getBarkStyle = function(isHowler) {
   return isHowler? 'woooooow!': 'woof, woof!';
 };
-export class Dog {  
+export class Dog {
   constructor(name, breed) {
     this.name = name;
     this.breed = breed;
@@ -74,7 +74,7 @@ export class Dog {
     return `${this.name}: ${getBarkStyle(this.breed === 'husky')}`;
   };
 }
-export class Wolf {  
+export class Wolf {
   constructor(name) {
     this.name = name;
   }
@@ -84,11 +84,11 @@ export class Wolf {
 }
 ```
 让我们想想如果在一个单元测试（如`Mocha/Chai`）用引入这个模块。使用语法`import <object> from <path>`，至于`<object>`我们可以选择我们想导入的元素--命名导入（[named imports](http://www.2ality.com/2014/09/es6-modules-final.html)）。接下来我们可以从`chai`中导入`expect`，同样，从`Zoo`中导入`Dog`和`Wolf`。这种命名导入的语法很像ES2015的另一个方便的特性--[解构赋值](http://www.2ality.com/2015/01/es6-destructuring.html)
-```
+```js
 // zoo_spec.js
-import { expect } from 'chai';  
+import { expect } from 'chai';
 import { Dog, Wolf } from '../src/zoo';
-describe('the zoo module', () => {  
+describe('the zoo module', () => {
   it('should instantiate a regular dog', () => {
     var dog = new Dog('Sherlock', 'beagle');
     expect(dog.bark()).to.equal('Sherlock: woof, woof!');
@@ -107,9 +107,9 @@ describe('the zoo module', () => {
 ### 默认
 
 如果你只有一个项目要导出，你可以使用`export default`来将你需要导出的项目作为一个对象
-```
+```js
 // cat.js
-export default class Cat {  
+export default class Cat {
   constructor(name) {
     this.name = name;
   }
@@ -122,11 +122,11 @@ export default class Cat {
 导入默认的模块更简单，至于结构赋值就不再用到了，你可以直接从模块中导入
 
 
-```
+```js
 // cat_spec.js
-import { expect } from 'chai';  
+import { expect } from 'chai';
 import Cat from '../src/cat';
-describe('the cat module', () => {  
+describe('the cat module', () => {
   it('should instantiate a cat', () => {
     var cat = new Cat('Bugsy');
     expect(cat.meow()).to.equal('Bugsy: You gotta be kidding that I\'ll obey you, right?');
@@ -151,18 +151,18 @@ describe('the cat module', () => {
 让我们看一看主要的代码块中在页面加载时加载的代码，我们的`main.js`。
 
 首先，注意通过`import`同步加载`Cat`时的表现，然后，创建了一个`Cat`的实例，调用它的方法`meow()`，然后添加结果到`DOM`中：
-```
+```js
 // main.js
 // Importing Cat module synchronously
 import Cat from 'cat';
 // DOM content node
 let contentNode = document.getElementById('content');
 // Rendering cat
-let myCat = new Cat('Bugsy');  
+let myCat = new Cat('Bugsy');
 contentNode.innerHTML += myCat.meow();
 ```
 最后，注意通过`System.import('zoo')`异步导入`Zoo`，最后，`Dog`和`Wolf`分别调用他们的方法`back()`，再次将结果添加到`DOM`中：
-```
+```js
 // Button to lazy load Zoo
 contentNode.innerHTML += `<p><button id='loadZoo'>Lazy load <b>Zoo</b></button></p>`;
 // Listener to lazy load Zoo

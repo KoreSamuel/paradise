@@ -17,19 +17,19 @@ comments: true
 
 上文提到`this`被赋予`function`所属的`Object`，具体来说，当`function`是定义在`global`对中时，`this`指向`global`；当`function`作为`Object`的方法时，`this`指向该`Object`：
 
-```
-var x = 1;  
-var f = function(){  
+```js
+var x = 1;
+var f = function(){
     console.log(this.x);
 }
 f();  // -> 1
-var ff = function(){  
+var ff = function(){
     this.x = 2;
     console.log(this.x);
 }
-ff(); // -> 2  
+ff(); // -> 2
 x     // -> 2
-var o = {x: "o's x", f: f};  
+var o = {x: "o's x", f: f};
 o.f(); // "o's x"
 ```
 
@@ -38,9 +38,9 @@ o.f(); // "o's x"
 上文提到，在`function`被执行时生成新的上下文时会先绑定当前上下文的变量对象，再创建作用域链。我们知道`function`的定义是可以嵌套在其他`function`所创建的上下文中，也可以并列地定义在同一个上下文中（如`global`）。作用域链实际上就是自下而上地将所有嵌套定义的上下文所绑定的变量对象串接到一起，使嵌套的`function`可以“继承”上层上下文的变量，而并列的`function`之间互不干扰：
 ![][3]
 
-```
-var x = 'global';  
-function a(){  
+```js
+var x = 'global';
+function a(){
     var x = "a's x";
     function b(){
         var y = "b's y";
@@ -48,38 +48,38 @@ function a(){
     };
     b();
 }
-function c(){  
+function c(){
     var x = "c's x";
     function d(){
 	    console.log(y);
     };
     d();
 }
-a();  // -> "a's x"  
-c();  // -> ReferenceError: y is not defined  
-x     // -> "global"  
-y     // -> ReferenceError: y is not defined  
+a();  // -> "a's x"
+c();  // -> ReferenceError: y is not defined
+x     // -> "global"
+y     // -> ReferenceError: y is not defined
 ```
 ## Closure
 
 如果理解了上文中提到的上下文与作用域链的机制，再来看闭包的概念就很清楚了。每个`function`在调用时会创建新的上下文及作用域链，而作用域链就是将外层（上层）上下文所绑定的变量对象逐一串连起来，使当前`function`可以获取外层上下文的变量、数据等。如果我们在`function`中定义新的`function`，同时将内层`function`作为值返回，那么内层`function`所包含的作用域链将会一起返回，即使内层`function`在其他上下文中执行，其内部的作用域链仍然保持着原有的数据，而当前的上下文可能无法获取原先外层`function`中的数据，使得`function`内部的作用域链被保护起来，从而形成“闭包”。看下面的例子：
 
-```
-var x = 100;  
-var inc = function(){  
+```js
+var x = 100;
+var inc = function(){
     var x = 0;
     return function(){
         console.log(x++);
     };
 };
-var inc1 = inc();  
+var inc1 = inc();
 var inc2 = inc();
-inc1();  // -> 0  
-inc1();  // -> 1  
-inc2();  // -> 0  
-inc1();  // -> 2  
-inc2();  // -> 1  
-x;       // -> 100  
+inc1();  // -> 0
+inc1();  // -> 1
+inc2();  // -> 0
+inc1();  // -> 2
+inc2();  // -> 1
+x;       // -> 100
 ```
 
 执行过程如下图所示，`inc`内部返回的匿名`function`在创建时生成的作用域链包括了`inc`中的`x`，即使后来赋值给`inc1`和`inc2`之后，直接在`global context`下调用，它们的作用域链仍然是由定义中所处的上下文环境决定，而且由于`x`是在`function inc`中定义的，无法被外层的`global context`所改变，从而实现了闭包的效果：
@@ -89,22 +89,22 @@ x;       // -> 100
 
 我们已经反复提到执行上下文和作用域实际上是通过`function`创建、分割的，而`function`中的`this`与作用域链不同，它是由执行该`function`时当前所处的`Object`环境所决定的，这也是`this`最容易被混淆用错的一点。一般情况下的例子如下：
 
-```
-var name = "global";  
-var o = {  
+```js
+var name = "global";
+var o = {
     name: "o",
     getName: function(){
         return this.name
     }
 };
-o.getName();  // -> "o"  
+o.getName();  // -> "o"
 ```
 
 由于执行`o.getName()`时`getName`所绑定的`this`是调用它的`o`，所以此时`this == o`；更容易搞混的是在`closure`条件下：
 
-```
-var name = "global";  
-var oo = {  
+```js
+var name = "global";
+var oo = {
     name: "oo",
     getNameFunc: function(){
         return function(){
@@ -117,26 +117,26 @@ oo.getNameFunc()();  // -> "global"
 
 此时闭包函数被`return`后调用相当于：
 
-```
-getName = oo.getNameFunc();  
+```js
+getName = oo.getNameFunc();
 getName();  // -> "global"
 ```
 
 换一个更明显的例子：
 
-```
-var ooo = {  
+```js
+var ooo = {
     name: "ooo",
     getName: oo.getNameFunc() // 此时闭包函数的this被绑定到新的Object
 };
-ooo.getName();  // -> "ooo"  
+ooo.getName();  // -> "ooo"
 ```
 
 当然，有时候为了避免闭包中的`this`在执行时被替换，可以采取下面的方法：
 
-```
-var name = "global";  
-var oooo = {  
+```js
+var name = "global";
+var oooo = {
     name: "ox4",
     getNameFunc: function(){
         var self = this;
@@ -148,9 +148,9 @@ var oooo = {
 oooo.getNameFunc()(); // -> "ox4"
 ```
 或者是在调用时强行定义执行的`Object`：
-```
-var name = "global";  
-var oo = {  
+```js
+var name = "global";
+var oo = {
     name: "oo",
     getNameFunc: function(){
         return function(){
@@ -158,8 +158,8 @@ var oo = {
         };
     }
 }
-oo.getNameFunc()();  // -> "global"  
-oo.getNameFunc().bind(oo)(); // -> "oo"  
+oo.getNameFunc()();  // -> "global"
+oo.getNameFunc().bind(oo)(); // -> "oo"
 ```
 
 ## 总结

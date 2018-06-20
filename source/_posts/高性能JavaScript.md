@@ -22,24 +22,24 @@ comments: true
 -  动态脚本元素:在跨浏览器兼容性和易用的优势，是最通用的无阻塞加载解决方案
 -  XMLHttpRequest注入：先创建一个XHR对象，然后用她下载javascript文件，最后通过创建动态`<script>`元素将代码注入页面中
 
-    ```
-      var xhr = new XMLHttpRequest();
-      xhr.open("get","file.js",true);
-      xhr.onreadystatechange = funtion(){
-           if(xhr.readyState == 4){
-                if(xhr.status>=200&&xhr.status<300||xhr.status==304){
-                     var script = document.creatElement("script");
-                     script.type="text/javascript";
-                     script.text=xhr.responseText;
-                     document.body.appendChild(script);
-                     }
-                }    
-      };
-      xhr.send(null);
-      //由于代码是在<script>标签之前返回的，因此它下载后不会自动执行。
-      //同样的代码在所有主流浏览器中无一例外都能正常工作
-      //局限性在于：javascript文件必须与请求的页面处于相同的域，即javascript不能从CDN下载
-    ```
+```js
+var xhr = new XMLHttpRequest();
+xhr.open("get","file.js",true);
+xhr.onreadystatechange = funtion(){
+    if(xhr.readyState == 4){
+        if(xhr.status>=200&&xhr.status<300||xhr.status==304){
+            var script = document.creatElement("script");
+            script.type="text/javascript";
+            script.text=xhr.responseText;
+            document.body.appendChild(script);
+        }
+    }
+};
+xhr.send(null);
+//由于代码是在<script>标签之前返回的，因此它下载后不会自动执行。
+//同样的代码在所有主流浏览器中无一例外都能正常工作
+//局限性在于：javascript文件必须与请求的页面处于相同的域，即javascript不能从CDN下载
+```
 
 ### 无阻塞脚本加载工具
 
@@ -55,24 +55,24 @@ lazyLoad类库、LABjs等等
 
 一个标识符所在的位置越深，他的读写速度就越慢，因此读写局部变量总是最快的，而读写全局变量通常是最慢的。全局变量总是存在于运行期上下文作用域链的最末端，因此是最远的。在没有优化javascript引擎的浏览器中，尽量使用局部变量，如果某个跨作用域的值在函数中被引用了多次，就把他存储到局部变量里。
 
-  ```
+```js
 function initUI() {
-  var doc = document,
-      bd = doc.body,
-      links = doc.getElementByTagName('a');
-  var i = 0,
-      len = links.length;
-  while (i < len) {
-      update(links[i++]);
-  }
-  doc.getElementById('btn').onclick = function() {
-      start();
-  };
-     bd.className = 'active'
+    var doc = document,
+        bd = doc.body,
+        links = doc.getElementByTagName('a');
+    var i = 0,
+        len = links.length;
+    while (i < len) {
+        update(links[i++]);
+    }
+    doc.getElementById('btn').onclick = function() {
+        start();
+    };
+    bd.className = 'active'
 }
-    //首先将document对象引用存储到局部变量doc中，全局变量的访问减少，当有很多全局变量
-    //被反复访问时，这种方法对性能的改善是很明显的。
-  ```
+//首先将document对象引用存储到局部变量doc中，全局变量的访问减少，当有很多全局变量
+//被反复访问时，这种方法对性能的改善是很明显的。
+```
 
 
 ### 闭包，作用域和内存
@@ -82,19 +82,19 @@ function initUI() {
 
 DOM
 
-```
-    function initHtml1(){
-         for(var i = 0;i<15000;i++){
-         document.getElementById('here').innerHTML+='a';
-         }
+```js
+function initHtml1(){
+    for(var i = 0;i<15000;i++){
+        document.getElementById('here').innerHTML+='a';
     }
-    function initHtml2(){
-         var html = "";
-         for(var i=0;i<15000;i++){
-         html+='a';
-         }
-         document.getElementById('here').innerHTML = html;
+}
+function initHtml2(){
+    var html = "";
+    for(var i=0;i<15000;i++){
+        html+='a';
     }
+    document.getElementById('here').innerHTML = html;
+}
 ```
 
 initHtml1()比initHtml2()速度慢很多，initHtml2()使用局部变量存储更新后的内容，减少了DOM访问，因此，减少DOM访问次数，讲运算尽量留在ECMAScript这端处理。

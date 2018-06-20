@@ -13,7 +13,7 @@ _这段时间在慢慢学习`Python`，正巧有个与`Python`相关的活，借
 ## SMTP
 `SMTP`是发送邮件的协议，`Python`内置对`SMTP`的支持，可以发送纯文本、HTML邮件。其中有两个用到的模块，`email`负责邮件构造，`smtplib`发送邮件。
 
-```
+```python
 '''using python send gmail'''
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-

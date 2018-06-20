@@ -19,7 +19,7 @@ CSS伪元素::after用来匹配已选中元素的一个虚拟的最后子元素�
 
 用`::after`伪元素，[attr()](https://developer.mozilla.org/en-US/docs/Web/CSS/attr)CSS表达式和一个[自定义数据属性](https://developer.mozilla.org/en-US/docs/Web/HTML/Global_attributes) `data-descr` 创建一个纯CSS, 词汇表提示工具
 
-```
+```html
 <body>
 	<p>这是一段并没有什么用的
 			<span data-descr='collection of words and punctuation'>文字</span>
@@ -30,27 +30,27 @@ CSS伪元素::after用来匹配已选中元素的一个虚拟的最后子元素�
 	</p>
 </body>
 ```
-```
- span[data-descr] {
-        position: relative;
-        text-decoration: underline;
-        color: #00F;
-        cursor: help;
-    }
-    span[data-descr]:hover::after {
-      content: attr(data-descr);
-      position: absolute;
-      left: 0;
-      top: 24px;
-      min-width: 200px;
-      border: 1px #aaaaaa solid;
-      border-radius: 10px;
-      background-color: #ffffcc;
-      padding: 12px;
-      color: #000000;
-      font-size: 14px;
-      z-index: 1;
-    }
+```css
+span[data-descr] {
+    position: relative;
+    text-decoration: underline;
+    color: #00F;
+    cursor: help;
+}
+span[data-descr]:hover::after {
+    content: attr(data-descr);
+    position: absolute;
+    left: 0;
+    top: 24px;
+    min-width: 200px;
+    border: 1px #aaaaaa solid;
+    border-radius: 10px;
+    background-color: #ffffcc;
+    padding: 12px;
+    color: #000000;
+    font-size: 14px;
+    z-index: 1;
+}
 ```
 [在线演示](http://runjs.cn/code/hkmnji2p)
 

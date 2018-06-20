@@ -20,7 +20,7 @@ comments: true
 
 阅读源码发现主要使用`border-image`和用`canvas`绘制两种方式实现。首先先取出点九图左边和上边`1px`，这里以水平方向为例：
 
-```
+```js
 let tempCtx, tempCanvas;
 tempCanvas = document.createElement('canvas');
 tempCtx = tempCanvas.getContext('2d');
@@ -29,7 +29,7 @@ let data = tempCtx.getImageData(0, 0, this.bgImage.width, 1).data;
 ```
 
 上面的`data`存放的为只读的`ImageData.data`属性，返回[`Uint8ClampedArray`](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray),描述一个一维数组，包含以 `RGBA` 顺序的数据，数据使用 `0` 至 `255`（包含）的整数表示。然后遍历这个一维数组，每`4`位一个`step`，找到可拉伸的区间数量和区域。
-```
+```js
 NinePatch.prototype.getPieces = function(data, staticColor, repeatColor) {
     var tempDS, tempPosition, tempWidth, tempColor, tempType;
     var tempArray = new Array();
@@ -60,7 +60,7 @@ NinePatch.prototype.getPieces = function(data, staticColor, repeatColor) {
 }
 ```
 上面的`getPieces`方法存放了可用于判断拉伸区间数量和可拉伸范围的数组。在将其传入绘制函数中。
-```
+```js
 for (var i = 0, n = this.horizontalPieces.length; i < n; i++) {
     if (this.horizontalPieces[i][0] == 's') {
         tempStaticWidth += this.horizontalPieces[i][2];
@@ -77,7 +77,7 @@ fillWidth = (dWidth - tempStaticWidth) / tempDynamicCount;  // 可拉伸区间
 
 找到的这种方式只能将图片进行放大，如果点九图比需要预览的图大，那就不适用了，还有个新问题是，点九图的宽或高跟预览图相比，有个的值大，有一个的值小，如：W点九 > W预览，H点九 < H预览。这种情景也不适用，所以考虑处理点九图。
 这里只说最终的解决办法，当点九图的宽或高其中一个大于预览图的对应值时，将对应边缩小到预览图的值，再将另一边等比缩小，产生新的点九图片，这样新的点九图肯定比预览图小，可以正常拉伸了。
-```
+```js
 if (this.div.offsetWidth < this.bgImage.width && this.div.offsetHeight > this.bgImage.height) {
     tmpCanvas.width = this.div.offsetWidth;
     tmpCanvas.height = Math.floor(this.bgImage.height * this.div.offsetWidth / this.bgImage.width);

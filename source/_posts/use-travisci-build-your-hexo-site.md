@@ -33,7 +33,7 @@ comments: true
 点击`Personal access tokens`，进入页面后，在点击右上角`Generate new token`,会再次让输入`github`密码，然后在`Token description`下起一个名字，再勾选一些权限，我是全给勾选上了，在点击下面`Generate token`这里就不多截图了。复制生成的`token`码。
 ### 配置Travis CI
 回到`Travis`的`setting`页面，如上面图，在`Environment Variables`这一栏，点击`Add`，起一个名字到`Name`，将复制的`token`码粘贴到`Value`框中，到这步为止，已经完成了`Travis`的设置。到博客源码根目录，创建一个`.travis.yml`的配置文件，内容如下，附注释，注意缩进
-```
+```yaml
 language: node_js  #设置语言
 
 node_js: stable  #设置相应的版本
@@ -76,7 +76,7 @@ env:
 仔细查看上面的配置文件，我们发现每次都是将 public 目录下的文件重新生成了一个git项目，然后强制覆盖提交到了 master 分支下，这就是问题的所在。
 为了解决这个问题，我将配置文件改为了如下的内容：
 
-```
+```bash
 after_script:
   - git clone https://${GH_REF} .deploy_git
   - cd .deploy_git
@@ -93,7 +93,7 @@ after_script:
 在 after_script 部分，我先将博客项目 clone 到本地的 .deploy_git 目录下（目录名可自定义）,然后切换到 master 分支，将 master 分支下的 .git 目录拷贝到了 public 目录下，接着继续后面的 commit 操作。
 ### 添加 commit 时间戳
 按照前面的方法配置 `travis.yml` 的内容，在 `master` 分支下的提交记录是这样的：
-```
+```bash
 Travis CI Auto Builder
 Travis CI Auto Builder
 Travis CI Auto Builder
@@ -102,20 +102,20 @@ Travis CI Auto Builder
 看到每次的提交记录中没有提交的时间戳，所以考虑着要把 `commit` 的时间戳给加上。
 `script` 命令下是可以执行 `shell` 命令的，所以对 `travis.yml` 文件进行了修改。
 在 `shell` 中获取当前的时间戳，可以这样:
-```
+```bash
 #/bin/bash
 > date +"%Y-%m-%d %H:%M"
 2018-05-05 12:13
 ```
 `Travis CI` 中使用的`linux`系统在编译生成时使用的是`UTC`时间，这样我们在`github`中的提交列表中看到的提交时间就会晚8小时。我们需要在执行时将时区改为东八区。
-```
+```bash
 before_install:
   - export TZ='Asia/Shanghai'
 ```
 
 然后将`after_script`中的命令移到单独的`shell`文件中。最终的两个文件内容如下
+```bash
 > build.sh
-```
 #!/bin/bash
 set -ev
 
@@ -135,8 +135,8 @@ git commit -m "Travis CI Auto Builder at `date +"%Y-%m-%d %H:%M"`"
 
 git push --force --quiet "https://${travis}@${GH_REF}" master:master  #travis是在Travis中配置token的名称
 ```
+```yaml
 > .travis.yml
-```
 language: node_js
 
 node_js: stable

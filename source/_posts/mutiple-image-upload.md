@@ -9,15 +9,15 @@ comments: true
 
 ## 图片添加
 
-```
+```html
 <input type="file" id="uploadcontainer" name="images" multiple="multiple" accept="image/*">
 ```
-如上，`input`将`type`设置为`file`即可以上传文件，`accept`可以设置接收文件类型，这里是上传图片，所以设置成了`image/*`,`multiple`属性可以支持多文件上传。
+如上，`input`将`type`设置为`file`即可以上传文件，`accept`可以设置接收文件类型，这里是上传图片，所以设置成了`image/*`, `multiple` 属性可以支持多文件上传。
 
 ## 图片预览
 > 以下代码默认加载了jquery
 
-```
+```js
 // 监听图片添加
 $('#uploadcontainer').on('change', function() {
     let files = $(this).prop('files');
@@ -45,7 +45,7 @@ preview: function(files) {
 
 > 假定我们的接口只支持每次只能上传一张图片
 
-```
+```js
 upload: function(f, cb) {
     // 递归
     (function uploads() {

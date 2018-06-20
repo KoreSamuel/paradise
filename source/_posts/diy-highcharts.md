@@ -16,7 +16,7 @@ comments: true
 
 采用`min-max标准化`，也叫离差标准化，对原始数据的线性变化，结果落到`[0, 1]`之间。将需要处理的数据组，即`series`数据先处理，找到每组的最大最小，并计算.
 
-```
+```js
 function normalizing(arr) {
     var data = [];
     for (var i = 0, len = arr.length; i < len; i++) {
@@ -44,7 +44,7 @@ function normalizing(arr) {
 现在`hover`能够正确显示数据了，图表里的线条也有了一定的对比性，但是Y轴坐标依然是按照归一化后数据量级来的。在考虑到需要在点击线条的时候显示成其原数据量级的Y轴，所以采用以下办法。
 取出选中线条数据中的最大最小，按照归一化算法逆回去，那么其实现在图表中的线条已经不是`[0, 1]`之间的数据了，而是分别乘上点击线条最大值，并加上最小值后的数据。那么，`Y`轴的自然就变成了当前的数据量级。
 
-```
+```js
 function adjustSeries(activeName) {
     var data = chart.series;
     var max, min;
