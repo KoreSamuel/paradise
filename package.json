@@ -14,7 +14,7 @@
     "hexo-generator-index": "^0.2.0",
     "hexo-generator-json-content": "^3.0.1",
     "hexo-generator-tag": "^0.2.0",
-    "hexo-prism-plugin": "^2.2.0",
+    "hexo-prism-plugin": "git+https://github.com/lovehexy/hexo-prism-plugin.git",
     "hexo-renderer-ejs": "^0.3.0",
     "hexo-renderer-less": "^0.2.0",
     "hexo-renderer-marked": "^0.3.2",
