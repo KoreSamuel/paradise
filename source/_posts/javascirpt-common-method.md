@@ -77,6 +77,15 @@ const unique = arr => {
 console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 ```
 ```js
+// reduce 类似hash
+const arr = [1, 2, 3, '4', 3, 1];
+const unique = arr => {
+  return arr.reduce((acc, cur, index) => {
+    return (!acc[cur] && acc.push(cur), acc);
+  }, [])
+}
+```
+```js
 // hash
 const arr = [1, 2, 3, '4', 3, 1];
 const unique = arr => {
@@ -201,5 +210,13 @@ function debounce(fn, wait) {
     }, wait);
   }
 }
+```
+### 数组扁平化，实现一个flatten函数
+```js
+const flatten = arr => (
+  [].concat(...arr.map(item => Array.isArray(item) ? flatten(item) : item))
+);
+const arr = [1, [2], [[3], 4], 5];
+console.log(flatten(arr)); // [1,2,3,4,5]
 ```
 _待续_
