@@ -142,4 +142,64 @@ const arr = Array.from(arguments);
 // and
 const arr = [...arguments]; // 适用于arguments
 ```
+
+### 用数组reduce方法实现map
+```js
+Array.prototype.map2 = function(callback) {
+    const arr = this;
+    return arr.reduce((acc, curr, index) => {
+        prev.push(callback(acc, index));
+        return prev;
+    }, []);
+}
+// test
+const testarr = [1,2,23,4,5,5];
+const aftermap2 = testarr.map2((item, index) => {
+  return {
+    [index + '-' + item]: item
+  }
+});
+console.log(aftermap2)
+//[{"0-1":1},{"1-2":2},{"2-23":23},{"3-4":4},{"4-5":5},{"5-5":5}]
+// 实现filter同理
+```
+
+### 防抖函数debounce的实现
+
+> 多次触发事件，在事件触发n秒后执行，如果在一个事件触发的n秒内又触发这个事件，那就以新的事件事件为准，继续等n秒后执行。常见window的resise，scroll，mousemove等
+
+```js
+//第一版， 最简版
+function debounce(fn, wait) {
+  let timeout = void 0;
+  return function () {
+    clearTimeout(timeout);
+    timeout = setTimeout(fn, wait);
+  }
+}
+// 第二版，处理this
+function debounce(fn, wait) {
+  let timeout = void 0;
+  return function () {
+    const ctx = this;
+    clearTimeout(timeout)
+    timeout = setTimeout(function() {
+      fn.apply(ctx);
+    }, wait)
+  }
+}
+// 第三版 event对象，
+// 在事件处理函数中会提供事件对象event，如果不传，获取会是undefined
+function debounce(fn, wait) {
+  let timeout = void 0;
+  return function () {
+    const ctx = this;
+    const args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      fn.apply(ctx, args);
+    }, wait);
+  }
+}
+```
 _待续_
