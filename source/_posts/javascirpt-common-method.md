@@ -81,7 +81,7 @@ console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 const arr = [1, 2, 3, '4', 3, 1];
 const unique = arr => {
   return arr.reduce((acc, cur, index) => {
-    return (!acc[cur] && acc.push(cur), acc);
+    return (!acc.includes(cur) && acc.push(cur), acc);
   }, [])
 }
 ```
@@ -218,5 +218,11 @@ const flatten = arr => (
 );
 const arr = [1, [2], [[3], 4], 5];
 console.log(flatten(arr)); // [1,2,3,4,5]
+// reduce
+const flatten = arr =>{
+  return arr.reduce((acc, cur) => {
+    return acc.concat(Array.isArray(cur) ? flatten(cur) : cur)
+  }, [])
+}
 ```
 _待续_
