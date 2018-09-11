@@ -219,10 +219,28 @@ const flatten = arr => (
 const arr = [1, [2], [[3], 4], 5];
 console.log(flatten(arr)); // [1,2,3,4,5]
 // reduce
-const flatten = arr =>{
+const flatten = arr => {
   return arr.reduce((acc, cur) => {
     return acc.concat(Array.isArray(cur) ? flatten(cur) : cur)
   }, [])
+}
+// 还有个骚操作
+// 不过这个方式会存在问题，比如[1, 2, '3', [2, 3]]
+// 含有Number和String，处理后不能区分
+// 具体查看[Array.prototype.toString()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
+const flatten = arr => {
+  return arr.toString().split(',').map(item => +item);
+}
+```
+
+### 实现一个new函数
+```js
+function create() {
+  let a = Object.create(null); // 1.创建一个对象；
+  let cons = [...arguments].shift(); // 2. 获取构造函数
+  a.__proto__ = cons.prototype; // 3. 链接到原型
+  let rst = cons.call(a, arguments); // 4. 绑定this
+  return typeof rst === 'object' ? rst : a;
 }
 ```
 _待续_
