@@ -1,28 +1,32 @@
-title: 高性能JavaScript
+title: 高性能 JavaScript
 date: 2015-05-24 19:12:54
 categories: 学习笔记
 tags: [javascript,性能优化]
 comments: true
+
 ---
-## javascript加载和运行
+
+## javascript 加载和运行
 
 ### 脚本位置
 
-尽管浏览器已经允许并行下载javascript文件，但是javascript下载过程仍然会阻塞其他资源的下载，如图片。页面仍然需要等待所有javascript代码下载并执行完成才能继续所以优化javascript的首要原则：将脚本放在底部（`</body>`之前)
+尽管浏览器已经允许并行下载 javascript 文件，但是 javascript 下载过程仍然会阻塞其他资源的下载，如图片。页面仍然需要等待所有 javascript 代码下载并执行完成才能继续所以优化 javascript 的首要原则：将脚本放在底部（`</body>`之前)
+
 <!-- more -->
+
 ### 组织脚本
 
-每个`<script>`标签初始下载都会阻塞页面渲染，所以减少页面包含的`<script>`标签数量有助于改善这一情况。考虑到到HTTP请求会额外带来性能的开销。下载单个100B的文件比下载4个25B的文件更快。所以，减少页面中外链脚本文件的数量会改善性能。
+每个`<script>`标签初始下载都会阻塞页面渲染，所以减少页面包含的`<script>`标签数量有助于改善这一情况。考虑到到 HTTP 请求会额外带来性能的开销。下载单个 100B 的文件比下载 4 个 25B 的文件更快。所以，减少页面中外链脚本文件的数量会改善性能。
 
 <!--more-->
 
 ### 无阻塞的脚本
 
--  延迟的脚本：带有defer属性的`<script>`标签，需要浏览器支持
--  动态脚本元素:在跨浏览器兼容性和易用的优势，是最通用的无阻塞加载解决方案
--  XMLHttpRequest注入：先创建一个XHR对象，然后用她下载javascript文件，最后通过创建动态`<script>`元素将代码注入页面中
+- 延迟的脚本：带有 defer 属性的`<script>`标签，需要浏览器支持
+- 动态脚本元素:在跨浏览器兼容性和易用的优势，是最通用的无阻塞加载解决方案
+- XMLHttpRequest 注入：先创建一个 XHR 对象，然后用她下载 javascript 文件，最后通过创建动态`<script>`元素将代码注入页面中
 
-```js
+```javascript
 var xhr = new XMLHttpRequest();
 xhr.open("get","file.js",true);
 xhr.onreadystatechange = funtion(){
@@ -43,7 +47,7 @@ xhr.send(null);
 
 ### 无阻塞脚本加载工具
 
-lazyLoad类库、LABjs等等
+lazyLoad 类库、LABjs 等等
 
 ##管理作用域
 
@@ -53,48 +57,47 @@ lazyLoad类库、LABjs等等
 
 ### 标识符解析的性能
 
-一个标识符所在的位置越深，他的读写速度就越慢，因此读写局部变量总是最快的，而读写全局变量通常是最慢的。全局变量总是存在于运行期上下文作用域链的最末端，因此是最远的。在没有优化javascript引擎的浏览器中，尽量使用局部变量，如果某个跨作用域的值在函数中被引用了多次，就把他存储到局部变量里。
+一个标识符所在的位置越深，他的读写速度就越慢，因此读写局部变量总是最快的，而读写全局变量通常是最慢的。全局变量总是存在于运行期上下文作用域链的最末端，因此是最远的。在没有优化 javascript 引擎的浏览器中，尽量使用局部变量，如果某个跨作用域的值在函数中被引用了多次，就把他存储到局部变量里。
 
-```js
+```javascript
 function initUI() {
-    var doc = document,
-        bd = doc.body,
-        links = doc.getElementByTagName('a');
-    var i = 0,
-        len = links.length;
-    while (i < len) {
-        update(links[i++]);
-    }
-    doc.getElementById('btn').onclick = function() {
-        start();
-    };
-    bd.className = 'active'
+  var doc = document,
+    bd = doc.body,
+    links = doc.getElementByTagName('a');
+  var i = 0,
+    len = links.length;
+  while (i < len) {
+    update(links[i++]);
+  }
+  doc.getElementById('btn').onclick = function() {
+    start();
+  };
+  bd.className = 'active';
 }
 //首先将document对象引用存储到局部变量doc中，全局变量的访问减少，当有很多全局变量
 //被反复访问时，这种方法对性能的改善是很明显的。
 ```
 
-
 ### 闭包，作用域和内存
 
 将常用的跨作用域变量存储在局部变量中，然后访问局部变量嵌套的对象成员会明显影响性能，尽量少用
-通常来说，把常用的对象成员、数组元素、跨域变量保存在局部变量中来改善javascript性能，因为局部变量访问速度更快。
+通常来说，把常用的对象成员、数组元素、跨域变量保存在局部变量中来改善 javascript 性能，因为局部变量访问速度更快。
 
 DOM
 
-```js
-function initHtml1(){
-    for(var i = 0;i<15000;i++){
-        document.getElementById('here').innerHTML+='a';
-    }
+```javascript
+function initHtml1() {
+  for (var i = 0; i < 15000; i++) {
+    document.getElementById('here').innerHTML += 'a';
+  }
 }
-function initHtml2(){
-    var html = "";
-    for(var i=0;i<15000;i++){
-        html+='a';
-    }
-    document.getElementById('here').innerHTML = html;
+function initHtml2() {
+  var html = '';
+  for (var i = 0; i < 15000; i++) {
+    html += 'a';
+  }
+  document.getElementById('here').innerHTML = html;
 }
 ```
 
-initHtml1()比initHtml2()速度慢很多，initHtml2()使用局部变量存储更新后的内容，减少了DOM访问，因此，减少DOM访问次数，讲运算尽量留在ECMAScript这端处理。
+initHtml1()比 initHtml2()速度慢很多，initHtml2()使用局部变量存储更新后的内容，减少了 DOM 访问，因此，减少 DOM 访问次数，讲运算尽量留在 ECMAScript 这端处理。
