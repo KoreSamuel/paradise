@@ -27,7 +27,7 @@ menu:
 # Theme Settings
 # ===========================================
 # color: default | mint green | cobalt blue | hot pink | dark violet
-color: default
+color: dark violet
 
 # default page mode: default | archives
 mode: default
@@ -54,14 +54,14 @@ reward:
 # Social links Settings
 # ===========================================
 social:
-  email: hexy.xiaojie@email.com
+  email: hexy.xiaojie@gmail.com
   stack-overflow:
   twitter:
   facebook:
   linkedin:
   google:
   github: https://github.com/swust-xiaoj
-  weibo:
+  weibo: https://www.weibo.com/xiaojie0428
   zhihu:
   douban:
   pocket:

@@ -21,13 +21,13 @@ comments: true
 ## 构建
 
 首先进入[Travis CI](https://travis-ci.org/)官网，使用`github`账号登录，如下图
-![travis](http://7xjp74.com1.z0.glb.clouddn.com/travis.png)
+![travis](/images/travis.png)
 登录成功后进入如下界面，以为我再此之前已经构建过，所以会用红色框内的内容，如果没有使用过是没有的。
-![list](http://7xjp74.com1.z0.glb.clouddn.com/list.png)
+![list](/images/list.png)
 然后点击`My Repositories`右边的`+`，添加需要自动构建的`repos`，进入如下页面。
-![new](http://7xjp74.com1.z0.glb.clouddn.com/new.png)
+![new](/images/new.png)
 可以看到这个界面会显示当前`github`账号的所以项目，如果没有显示，点击右上角的`Sync account`按钮，就可以同步过来了，点击需要构建的`repos`前面的按钮为`ON`，再点击其后的原形设置图标，进入如下界面
-![config](http://7xjp74.com1.z0.glb.clouddn.com/config.png)
+![config](/images/config.png)
 如图中设置，将`Build only if .travis.yml is present`及另外两个设置为`ON`，功能如字面意思不多说。
 到目前为止，已经将需要构建的`repos`开启，那么，我们如何在将源码提交到`github`的时候，它就自动构建并将`build`后的静态文件`push`到我的静态文件`branch`或者`repos`呢（我是将`build`后的静态文件放到一个单独的`repos`了，也可以放在源码`repos`的另一个`branch`，例如起名叫`hexo`），接下来说如何让`Travis CI`访问`github`.
 
@@ -38,7 +38,7 @@ comments: true
 ### 生成 Access Token
 
 登录[github](https://github.com/)，进入个人主页，点击`setting`，进入界面后找到下图所指位置。
-![token](http://7xjp74.com1.z0.glb.clouddn.com/token.png)
+![token](/images/token.png)
 点击`Personal access tokens`，进入页面后，在点击右上角`Generate new token`,会再次让输入`github`密码，然后在`Token description`下起一个名字，再勾选一些权限，我是全给勾选上了，在点击下面`Generate token`这里就不多截图了。复制生成的`token`码。
 
 ### 配置 Travis CI
@@ -79,7 +79,7 @@ env:
 ### 创建文章
 
 我们可以创建一篇文章`hexo new post use-travis-build-your-hexo-site`，添加内容后，并`push`到`github`，正常情况下，进入`Travis`网站就可以看到已经在构建了，如图
-![success](http://7xjp74.com1.z0.glb.clouddn.com/success.png)
+![success](/images/success.png)
 完成后，[访问链接](https://dearxiaojie.top/article/2017-05-04-use-travisci-build-your-hexo-site.html)就可以看到这篇文章了。
 
 ## 写在后面
