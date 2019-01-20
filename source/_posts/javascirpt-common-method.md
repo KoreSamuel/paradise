@@ -3,8 +3,12 @@ title: javascirpt常用函数实现
 date: 2018-07-03 20:02:30
 tags:
 ---
+
 随手记录点好玩的东西
-### 实现一个sleep函数
+
+### 实现一个 sleep 函数
+
+  <!-- more -->
 
 ```js
 // promise
@@ -17,8 +21,9 @@ const t1 = +new Date();
 sleep(1000).then(() => {
   const t2 = +new Date();
   console.log(t2 - t1); // 1005
-})
+});
 ```
+
 ```js
 //await/async
 const sleep = time => {
@@ -31,9 +36,10 @@ const ts = async () => {
   await sleep(1000);
   const t2 = +new Date();
   console.log(t2 - t1);
-}
+};
 ts(); // 1001
 ```
+
 在社区能找到一个[https://github.com/erikdubbelboer/node-sleep](https://github.com/erikdubbelboer/node-sleep),不过需要安装才能使用
 
 ```js
@@ -60,12 +66,13 @@ const unique = arr => {
         break;
       }
     }
-    lens === j && rst.push(item)
+    lens === j && rst.push(item);
   }
   return rst;
 };
 console.log(unique(arr)); //[ 1, 2, 3, '4' ]
 ```
+
 ```js
 // filter/indexOf
 const arr = [1, 2, 3, '4', 3, 1];
@@ -76,20 +83,23 @@ const unique = arr => {
 };
 console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 ```
+
 ```js
 // reduce 类似hash
 const arr = [1, 2, 3, '4', 3, 1];
 const unique = arr => {
   return arr.reduce((acc, cur, index) => {
-    return (!acc.includes(cur) && acc.push(cur), acc);
-  }, [])
-}
+    return !acc.includes(cur) && acc.push(cur), acc;
+  }, []);
+};
 ```
+
 ```js
 // hash
 const arr = [1, 2, 3, '4', 3, 1];
 const unique = arr => {
-  const hash = {}, rst = [];
+  const hash = {},
+    rst = [];
   for (let i = 0, len = arr.length; i < len; i++) {
     let cur = arr[i];
     if (!hash[cur]) {
@@ -101,17 +111,29 @@ const unique = arr => {
 };
 console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 ```
+
 但是如果数组元素不限于 `Number` 和 `String` 类型，为了保证 `hash key` 的唯一性，我们可以传递一个 `hasher` 函数处理 `key`。如下
 
 ```js
 const arr = [1, 2, 3, '4', 3, 1];
-const arrs = [1, false, false, 'false', 2, {name: 'ming'}, '4', {name: 'ming'}, 1];
+const arrs = [
+  1,
+  false,
+  false,
+  'false',
+  2,
+  { name: 'ming' },
+  '4',
+  { name: 'ming' },
+  1
+];
 const unique = (arr, hasher) => {
   // 默认使用JSON.stringify,不过对于Function不适用，可传入其他处理方式
   hasher = hasher || JSON.stringify;
 
-  const rst = [], hash = {};
-  for (let i = 0, len = arr.length; i< len; i++) {
+  const rst = [],
+    hash = {};
+  for (let i = 0, len = arr.length; i < len; i++) {
     let cur = arr[i];
     let hashkey = hasher(cur);
 
@@ -120,120 +142,143 @@ const unique = (arr, hasher) => {
       hash[hashkey] = true;
     }
   }
-  return rst
+  return rst;
 };
 console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 console.log(unique(arrs)); // [ 1, false, 'false', 2, { name: 'ming' }, '4' ]
 ```
-当然啦，还有最终极的版本，那就是`ES6`提供的`Set`.不过处理的数据类型也是有限的，可以按情况选择哪种方式
+
+当然啦，还有最终极的版本，那就是`ES6`提供的`Set`.不过处理的  数据类型也是有限的，可以按情况选择  哪种方式
+
 ```js
 const arr = [1, 2, 3, '4', 3, 1];
-const arrs = [1, false, false, 'false', 2, {name: 'ming'}, '4', {name: 'ming'}, 1];
+const arrs = [
+  1,
+  false,
+  false,
+  'false',
+  2,
+  { name: 'ming' },
+  '4',
+  { name: 'ming' },
+  1
+];
 
 const unique = arr => [...new Set(arr)];
 
 console.log(unique(arr)); // [ 1, 2, 3, '4' ]
 console.log(unique(arrs)); // [ 1, false, 'false', 2, { name: 'ming' }, '4', { name: 'ming' } ] 不符合预期
 ```
+
 ### array-like 转成 array
+
 所谓`array-like`就是按照数组下标排序的对象，有`length`属性，如`{0: 'aa', 1: 'bb', 2: 'cc', length: 3}`;
 
 将函数参数`arguments`转换成数组，常见的处理方式如下
+
 ```js
 const arr = Array.prototype.slice.call(arguments); // [ 'aa', 'bb', 'cc' ]
 // 或者
 const arr = [].slice.call(arguments); // [ 'aa', 'bb', 'cc' ]
 ```
-至于上面两种方式的区别，可以查看[js中 [].slice 与 Array.prototype.slice 有什么区别?](https://www.zhihu.com/question/46724226)了解
+
+至于上面两种方式的区别，可以查看[js 中 [].slice 与 Array.prototype.slice 有什么区别?](https://www.zhihu.com/question/46724226)了解
 使用`ES6`之后，可以有另外两种方式
+
 ```js
 const arr = Array.from(arguments);
 // and
 const arr = [...arguments]; // 适用于arguments
 ```
 
-### 用数组reduce方法实现map
+### 用数组 reduce 方法实现 map
+
 ```js
 Array.prototype.map2 = function(callback) {
-    const arr = this;
-    return arr.reduce((acc, curr, index) => {
-        prev.push(callback(acc, index));
-        return prev;
-    }, []);
-}
+  const arr = this;
+  return arr.reduce((acc, curr, index) => {
+    prev.push(callback(acc, index));
+    return prev;
+  }, []);
+};
 // test
-const testarr = [1,2,23,4,5,5];
+const testarr = [1, 2, 23, 4, 5, 5];
 const aftermap2 = testarr.map2((item, index) => {
   return {
     [index + '-' + item]: item
-  }
+  };
 });
-console.log(aftermap2)
+console.log(aftermap2);
 //[{"0-1":1},{"1-2":2},{"2-23":23},{"3-4":4},{"4-5":5},{"5-5":5}]
 // 实现filter同理
 ```
 
-### 防抖函数debounce的实现
+###  防抖函数 debounce 的实现
 
-> 多次触发事件，在事件触发n秒后执行，如果在一个事件触发的n秒内又触发这个事件，那就以新的事件事件为准，继续等n秒后执行。常见window的resise，scroll，mousemove等
+> 多次触发事件，在事件触发 n 秒后执行，如果在一个事件触发的 n 秒内又触发这个事件，那就以新的事件事件为准，继续等 n 秒后执行。常见 window 的 resise，scroll，mousemove 等
 
 ```js
 //第一版， 最简版
 function debounce(fn, wait) {
   let timeout = void 0;
-  return function () {
+  return function() {
     clearTimeout(timeout);
     timeout = setTimeout(fn, wait);
-  }
+  };
 }
 // 第二版，处理this
 function debounce(fn, wait) {
   let timeout = void 0;
-  return function () {
+  return function() {
     const ctx = this;
-    clearTimeout(timeout)
+    clearTimeout(timeout);
     timeout = setTimeout(function() {
       fn.apply(ctx);
-    }, wait)
-  }
+    }, wait);
+  };
 }
 // 第三版 event对象，
 // 在事件处理函数中会提供事件对象event，如果不传，获取会是undefined
 function debounce(fn, wait) {
   let timeout = void 0;
-  return function () {
+  return function() {
     const ctx = this;
     const args = arguments;
     clearTimeout(timeout);
     timeout = setTimeout(function() {
       fn.apply(ctx, args);
     }, wait);
-  }
+  };
 }
 ```
-### 数组扁平化，实现一个flatten函数
+
+### 数组扁平化，实现一个 flatten 函数
+
 ```js
-const flatten = arr => (
-  [].concat(...arr.map(item => Array.isArray(item) ? flatten(item) : item))
-);
+const flatten = arr =>
+  [].concat(...arr.map(item => (Array.isArray(item) ? flatten(item) : item)));
 const arr = [1, [2], [[3], 4], 5];
 console.log(flatten(arr)); // [1,2,3,4,5]
 // reduce
 const flatten = arr => {
   return arr.reduce((acc, cur) => {
-    return acc.concat(Array.isArray(cur) ? flatten(cur) : cur)
-  }, [])
-}
+    return acc.concat(Array.isArray(cur) ? flatten(cur) : cur);
+  }, []);
+};
 // 还有个骚操作
 // 不过这个方式会存在问题，比如[1, 2, '3', [2, 3]]
 // 含有Number和String，处理后不能区分
 // 具体查看[Array.prototype.toString()](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString)
 const flatten = arr => {
-  return arr.toString().split(',').map(item => +item);
-}
+  return arr
+    .toString()
+    .split(',')
+    .map(item => +item);
+};
 ```
 
-### 实现一个new函数
+### 实现一个 new 函数
+
 ```js
 function create() {
   let a = Object.create(null); // 1.创建一个对象；
@@ -243,4 +288,5 @@ function create() {
   return typeof rst === 'object' ? rst : a;
 }
 ```
+
 _待续_

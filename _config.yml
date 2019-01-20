@@ -38,7 +38,7 @@ post_asset_folder: false
 relative_link: false
 future: true
 highlight:
-  enable: false
+  enable: true
   line_number: true
   auto_detect: false
   tab_replace:
@@ -63,7 +63,7 @@ pagination_dir: page
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: fexo
+theme: even
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
@@ -95,7 +95,7 @@ jsonContent:
     tags: true
 
 prism_plugin:
-  mode: 'preprocess'    # realtime/preprocess
+  mode: 'preprocess' # realtime/preprocess
   theme: 'atom-dark'
-  line_number: false    # default false
+  line_number: false # default false
   # custom_css:      # optional

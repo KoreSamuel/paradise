@@ -1,5 +1,5 @@
 ---
-title: tag
-layout: tag
+title: tags
+layout: tags
 comments: false
 ---
