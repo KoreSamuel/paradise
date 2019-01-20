@@ -1,5 +1,5 @@
 ---
-title: category
-layout: category
+title: categories
+layout: categories
 comments: false
 ---
