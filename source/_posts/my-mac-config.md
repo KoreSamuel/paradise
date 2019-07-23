@@ -56,7 +56,7 @@ comments: true
 
 - [item2](https://www.iterm2.com/)
 - [Oh My Zsh](https://ohmyz.sh/)
-- [tmux](https://github.com/swust-xiaoj/.tmux)
+- [tmux](https://github.com/KoreSamuel/.tmux)
 - ...
 
 ## 环境

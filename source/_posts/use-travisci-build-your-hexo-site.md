@@ -60,7 +60,7 @@ script:
 after_script:
   - cd ./public
   - git init
-  - git config user.name "swust-xiaoj" #修改name
+  - git config user.name "KoreSamuel" #修改name
   - git config user.email "swustxiaojie@163.com" #修改email
   - git add .
   - git commit -m "update site"
@@ -71,7 +71,7 @@ branches:
     - master #只监测master，可根据自己情况设置，若是存放同一个仓库，这儿可以选择存放源码的branch，如hexo
 env:
   global:
-    - GH_REF: github.com/swust-xiaoj/tb.git #设置GH_REF，注意更改yourname
+    - GH_REF: github.com/KoreSamuel/tb.git #设置GH_REF，注意更改yourname
 ```
 
 因为我是新起了一个`repos`来存放静态文件了，所以上面的`GH_REF`是对应那个`repos`地址，若是放同一个`repos`中，那这儿一般都是`yourname.github.io`那个仓库。到此，配置已经完成了。
@@ -101,7 +101,7 @@ after_script:
   - cd ../
   - mv .deploy_git/.git/ ./public/
   - cd ./public
-  - git config user.name "swust-xiaoj"  #修改name
+  - git config user.name "KoreSamuel"  #修改name
   - git config user.email "swustxiaojie@163.com"  #修改email
   - git add .
   - git commit -m "Travis CI Auto Builder"
@@ -154,7 +154,7 @@ mv .deploy_git/.git/ ./public/
 
 cd ./public
 
-git config user.name "swust-xiaoj"  #修改name
+git config user.name "KoreSamuel"  #修改name
 git config user.email "swustxiaojie@163.com"  #修改email
 git add .
 git commit -m "Travis CI Auto Builder at `date +"%Y-%m-%d %H:%M"`"
@@ -192,7 +192,7 @@ branches:
     - master
 env:
  global:
-   - GH_REF: github.com/swust-xiaoj/swust-xiaoj.github.io.git
+   - GH_REF: github.com/KoreSamuel/KoreSamuel.github.io.git
 ```
 
 ## 参考

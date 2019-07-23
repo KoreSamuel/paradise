@@ -10,7 +10,7 @@ mv .deploy_git/.git/ ./public/
 
 cd ./public
 
-git config user.name "swust-xiaoj"  #修改name
+git config user.name "KoreSamuel"  #修改name
 git config user.email "swustxiaojie@163.com"  #修改email
 git add .
 git commit -m "Travis CI Auto Builder at `date +"%Y-%m-%d %H:%M"`"

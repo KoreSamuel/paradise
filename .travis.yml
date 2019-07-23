@@ -9,7 +9,7 @@ cache:
 before_install:
   - export TZ='Asia/Shanghai' # 更改时区
   - npm install hexo-cli -g
-  - chmod +x ./build.sh  # 为shell文件添加可执行权限
+  - chmod +x ./build.sh # 为shell文件添加可执行权限
 
 install:
   - npm install
@@ -25,5 +25,5 @@ branches:
   only:
     - master
 env:
- global:
-   - GH_REF: github.com/swust-xiaoj/swust-xiaoj.github.io.git
+  global:
+    - GH_REF: github.com/KoreSamuel/KoreSamuel.github.io.git
