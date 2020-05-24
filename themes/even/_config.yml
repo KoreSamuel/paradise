@@ -3,7 +3,7 @@
 # ===========================================
 
 # Site creation time
-since: 2015
+since: 2016
 
 # Custom your favicon.ico in `site/source`
 favicon: /favicon.ico
@@ -30,7 +30,7 @@ menu:
 color: dark violet
 
 # default page mode: default | archives
-mode: default
+mode: archives
 
 toc: true
 

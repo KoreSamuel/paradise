@@ -3,10 +3,10 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Sincerly
+title: KoreSamuel
 subtitle: 我们泪流满面，步步回头，却只能向前走。
 description: web frontend javascript html css
-author: xiaojie
+author: koresamuel
 language: zh-CN
 timezone:
 
@@ -86,7 +86,7 @@ jsonContent:
     raw: false
     content: false
     slug: false
-    updated: false
+    updated: true
     comments: false
     link: false
     permalink: false
