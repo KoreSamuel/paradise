@@ -79,7 +79,7 @@ leancloud:
 
 # Baidu Analytics
 # baidu_analytics: cd3bea7d045fc3fdc9952df80e48e5ec
-baidu_analytics:
+baidu_analytics: ce3f0f1afedc9ad992fcd647f1135250
 # Baidu Verification
 baidu_verification:
 
@@ -89,7 +89,7 @@ google_analytics:
 google_verification:
 
 # Disqus
-disqus_shortname: xiaojie
+disqus_shortname: KoreSamuel
 
 #Changyan
 changyan:
